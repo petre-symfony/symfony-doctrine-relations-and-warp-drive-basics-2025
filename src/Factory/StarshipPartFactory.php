@@ -9,6 +9,19 @@ use Zenstruck\Foundry\Persistence\PersistentProxyObjectFactory;
  * @extends PersistentProxyObjectFactory<StarshipPart>
  */
 final class StarshipPartFactory extends PersistentProxyObjectFactory {
+	private static array $partIdeas = [
+		'warp core' => 'looks cool AND zoom',
+		'shield generator' => 'in case you run into any Borg',
+		'captain\'s chair' => 'just slightly more comfortable than the others',
+		'fuzzy dice' => 'obviously',
+		'photon torpedoes' => 'for when the fuzzy dice don\'t work',
+		'holodeck' => 'parental controls? No way!',
+		'Tactical Whoopee Cushion Array' => 'can\'t beat them? Embarrass them!',
+		'Temporal Seat Warmers' => 'warm your seat before you sit down',
+		'Food Replicator' => 'Earl Grey, hot',
+		'Self-Destruct Button Cover' => 'for when you have a cat',
+		'Redshirt Dispenser' => 'Instantly replenishes expendable crew members.',
+	];
 	/**
 	 * @see https://symfony.com/bundles/ZenstruckFoundryBundle/current/index.html#factories-as-services
 	 *
@@ -27,11 +40,13 @@ final class StarshipPartFactory extends PersistentProxyObjectFactory {
 	 * @todo add your default values here
 	 */
 	protected function defaults(): array|callable {
+		$randomPartKey = self::faker()->randomKey(self::$partIdeas);
+		$randomPart = [$randomPartKey, self::$partIdeas[$randomPartKey]];
+
 		return [
-			'createdAt' => self::faker()->dateTime(),
-			'name' => self::faker()->text(255),
-			'price' => self::faker()->randomNumber(),
-			'updatedAt' => self::faker()->dateTime(),
+			'name' => $randomPart[0],
+			'price' => self::faker()->randomNumber(5),
+			'notes' => $randomPart[1],
 		];
 	}
 
