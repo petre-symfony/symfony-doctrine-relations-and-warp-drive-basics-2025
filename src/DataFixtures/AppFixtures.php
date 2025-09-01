@@ -38,8 +38,6 @@ class AppFixtures extends Fixture {
 		]);
 
 		StarshipFactory::createMany(20);
-		StarshipPartFactory::createMany(100, [
-			'starship' => $ship
-		]);
+		StarshipPartFactory::createMany(100);
 	}
 }
