@@ -3,6 +3,7 @@
 namespace App\Factory;
 
 use App\Entity\StarshipPart;
+use App\Entity\StarshipStatusEnum;
 use Zenstruck\Foundry\Persistence\PersistentProxyObjectFactory;
 
 /**
@@ -47,6 +48,9 @@ final class StarshipPartFactory extends PersistentProxyObjectFactory {
 			'name' => $randomPart[0],
 			'price' => self::faker()->randomNumber(5),
 			'notes' => $randomPart[1],
+			'starship' => StarshipFactory::randomOrCreate([
+				'status' => StarshipStatusEnum::IN_PROGRESS
+			])
 		];
 	}
 
