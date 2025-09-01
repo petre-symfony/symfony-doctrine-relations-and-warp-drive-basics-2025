@@ -29,6 +29,7 @@ class AppFixtures extends Fixture {
 		$manager->persist($starship);
 
 		$part = new StarshipPart();
+		$part->setStarship($starship);
 		$part->setName('spoiler');
 		$part->setNotes('There\'s no air drag in space, but it looks cool.');
 		$part->setPrice(500);
@@ -52,6 +53,5 @@ class AppFixtures extends Fixture {
 		]);
 
 		StarshipFactory::createMany(20);
-		StarshipPartFactory::createMany(50);
 	}
 }
