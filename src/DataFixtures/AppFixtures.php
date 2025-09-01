@@ -21,21 +21,6 @@ class AppFixtures extends Fixture {
 			'arrivedAt' => new DateTimeImmutable('-1 day'),
 		]);
 
-		$starship = new Starship();
-		$starship->setName('USS Taco Tuesday');
-		$starship->setClass('Tex-Mex');
-		$starship->checkIn();
-		$starship->setCaptain('James T. Nacho');
-		$manager->persist($starship);
-
-		$part = new StarshipPart();
-		$part->setStarship($starship);
-		$part->setName('spoiler');
-		$part->setNotes('There\'s no air drag in space, but it looks cool.');
-		$part->setPrice(500);
-		$manager->persist($part);
-		$manager->flush();
-
 		StarshipFactory::createOne([
 			'name' => 'USS Espresso (NCC-1234-C)',
 			'class' => 'Latte',
@@ -53,5 +38,6 @@ class AppFixtures extends Fixture {
 		]);
 
 		StarshipFactory::createMany(20);
+		StarshipPartFactory::createMany(100);
 	}
 }
