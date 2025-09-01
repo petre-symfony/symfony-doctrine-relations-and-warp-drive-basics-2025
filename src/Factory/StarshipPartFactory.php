@@ -48,7 +48,7 @@ final class StarshipPartFactory extends PersistentProxyObjectFactory {
 			'name' => $randomPart[0],
 			'price' => self::faker()->randomNumber(5),
 			'notes' => $randomPart[1],
-			'starship' => StarshipFactory::randomOrCreate([
+			'starship' => StarshipFactory::createOne([
 				'status' => StarshipStatusEnum::IN_PROGRESS
 			])
 		];
