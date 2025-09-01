@@ -13,17 +13,12 @@ class StarshipController extends AbstractController {
 	#[Route('/starships/{slug}', name: 'app_starship_show')]
 	public function show(
 		#[MapEntity(mapping: ['slug' => 'slug'])]
-		Starship $ship,
-		StarshipPartRepository $partRepository
+		Starship $ship
 	): Response {
-		$parts = $partRepository->findBy(['starship' => $ship]);
 
-		foreach ($parts as $part) {
-			dump($part);
-		}
-		
 		return $this->render('starship/show.html.twig', [
 			'ship' => $ship,
+			'parts' => $ship->getParts()
 		]);
 	}
 }
