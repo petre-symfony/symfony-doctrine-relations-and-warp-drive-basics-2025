@@ -145,10 +145,7 @@ class Starship {
 	 * @return Collection<int, StarshipPart>
 	 */
 	public function getExpensiveParts(): Collection {
-		$criteria = Criteria::create()
-			->andWhere(Criteria::expr()->gt('price', 50000));
-
-		return $this->parts->matching($criteria);
+		return $this->parts->matching(StarshipRepository::createExpansiveCriteria());
 	}
 
 	public function addPart(StarshipPart $part): static {

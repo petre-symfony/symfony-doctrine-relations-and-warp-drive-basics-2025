@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Starship;
 use App\Entity\StarshipStatusEnum;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\Common\Collections\Criteria;
 use Doctrine\Persistence\ManagerRegistry;
 use Pagerfanta\Doctrine\ORM\QueryAdapter;
 use Pagerfanta\Pagerfanta;
@@ -32,6 +33,11 @@ class StarshipRepository extends ServiceEntityRepository {
 
 	public function findMyShip(): Starship {
 		return $this->findAll()[0];
+	}
+
+	public static function createExpansiveCriteria(): Criteria {
+		return Criteria::create()
+			->andWhere(Criteria::expr()->gt('price', 50000));
 	}
 
 	//    /**
