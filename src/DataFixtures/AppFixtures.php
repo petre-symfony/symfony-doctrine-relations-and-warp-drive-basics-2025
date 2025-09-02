@@ -13,21 +13,13 @@ use Doctrine\Persistence\ObjectManager;
 
 class AppFixtures extends Fixture {
 	public function load(ObjectManager $manager): void {
-		$ship = StarshipFactory::createOne([
+		StarshipFactory::createOne([
 			'name' => 'USS LeafyCruiser (NCC-0001)',
 			'class' => 'Garden',
 			'captain' => 'Jean-Luc Pickles',
 			'status' => StarshipStatusEnum::IN_PROGRESS,
 			'arrivedAt' => new DateTimeImmutable('-1 day'),
 		])->_real();
-
-		$starshipPart = StarshipPartFactory::createOne([
-			'name' => 'Toilet Paper',
-			'starship' => $ship
-		])->_real();
-		$ship->removePart($starshipPart);
-		$manager->flush();
-		dump($starshipPart);
 
 		StarshipFactory::createOne([
 			'name' => 'USS Espresso (NCC-1234-C)',
