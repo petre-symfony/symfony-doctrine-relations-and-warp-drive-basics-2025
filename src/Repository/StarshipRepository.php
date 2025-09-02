@@ -3,8 +3,10 @@
 namespace App\Repository;
 
 use App\Entity\Starship;
+use App\Entity\StarshipPart;
 use App\Entity\StarshipStatusEnum;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\Criteria;
 use Doctrine\Persistence\ManagerRegistry;
 use Pagerfanta\Doctrine\ORM\QueryAdapter;
@@ -33,6 +35,17 @@ class StarshipRepository extends ServiceEntityRepository {
 
 	public function findMyShip(): Starship {
 		return $this->findAll()[0];
+	}
+
+	/**
+	 * @return Collection<int, StarshipPart>
+	 */
+	public function getExpensiveParts(int $limit=10): Collection {
+		return $this->createQueryBuilder('sp')
+			->addCriteria(self::createExpansiveCriteria())
+			->setMaxResults($limit)
+			->getQuery()
+			->getResult();
 	}
 
 	public static function createExpansiveCriteria(): Criteria {
