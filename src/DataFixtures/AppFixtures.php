@@ -13,7 +13,7 @@ use Doctrine\Persistence\ObjectManager;
 
 class AppFixtures extends Fixture {
 	public function load(ObjectManager $manager): void {
-		$starship = StarshipFactory::createOne();
+		$starship = StarshipFactory::createOne()->_real();
 		$part1 = new StarshipPart();
 		$part1->setName('Warp Core');
 		$part1->setPrice(1000);
@@ -22,7 +22,12 @@ class AppFixtures extends Fixture {
 		$part2->setPrice(500);
 		$manager->persist($part1);
 		$manager->persist($part2);
+
+		$starship->addPart($part1);
+		$starship->addPart($part2);
 		
+		$manager->flush();
+
 		StarshipFactory::createOne([
 			'name' => 'USS LeafyCruiser (NCC-0001)',
 			'class' => 'Garden',
