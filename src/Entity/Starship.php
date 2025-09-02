@@ -144,7 +144,9 @@ class Starship {
 	 * @return Collection<int, StarshipPart>
 	 */
 	public function getExpensiveParts(): Collection {
-		return $this->parts;
+		return $this->parts->filter(function (StarshipPart $part) {
+			return $part->getPrice() > 50000;
+		});
 	}
 
 	public function addPart(StarshipPart $part): static {
