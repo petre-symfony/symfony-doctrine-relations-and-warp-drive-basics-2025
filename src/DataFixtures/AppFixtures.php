@@ -25,6 +25,8 @@ class AppFixtures extends Fixture {
 			'name' => 'Toilet Paper',
 			'starship' => $ship
 		])->_real();
+		$ship->removePart($starshipPart);
+		$manager->flush();
 		dump($starshipPart);
 
 		StarshipFactory::createOne([
