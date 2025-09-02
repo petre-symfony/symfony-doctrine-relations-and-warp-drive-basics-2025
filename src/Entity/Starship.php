@@ -6,6 +6,7 @@ use App\Repository\StarshipRepository;
 use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation\Slug;
 use Gedmo\Mapping\Annotation\Timestampable;
@@ -144,9 +145,10 @@ class Starship {
 	 * @return Collection<int, StarshipPart>
 	 */
 	public function getExpensiveParts(): Collection {
-		return $this->parts->filter(function (StarshipPart $part) {
-			return $part->getPrice() > 50000;
-		});
+		$criteria = Criteria::create()
+			->andWhere(Criteria::expr()->gt('price', 50000));
+
+		return $this->parts->matching($criteria);
 	}
 
 	public function addPart(StarshipPart $part): static {
