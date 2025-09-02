@@ -19,12 +19,12 @@ class AppFixtures extends Fixture {
 			'captain' => 'Jean-Luc Pickles',
 			'status' => StarshipStatusEnum::IN_PROGRESS,
 			'arrivedAt' => new DateTimeImmutable('-1 day'),
-		]);
+		])->_real();
 
 		$starshipPart = StarshipPartFactory::createOne([
 			'name' => 'Toilet Paper',
 			'starship' => $ship
-		]);
+		])->_real();
 		dump($starshipPart);
 
 		StarshipFactory::createOne([
