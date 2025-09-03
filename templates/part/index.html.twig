@@ -8,6 +8,7 @@
       <form method="GET" action="{{ path('app_part_index') }}">
         <input type="text"
                name="query"
+               value="{{ app.request.query.get('query') }}"
                placeholder="Search..."
                class="w-full p-3 pl-10 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
         >
