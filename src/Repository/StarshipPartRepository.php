@@ -14,28 +14,13 @@ class StarshipPartRepository extends ServiceEntityRepository {
 		parent::__construct($registry, StarshipPart::class);
 	}
 
-	//    /**
-	//     * @return StarshipPart[] Returns an array of StarshipPart objects
-	//     */
-	//    public function findByExampleField($value): array
-	//    {
-	//        return $this->createQueryBuilder('s')
-	//            ->andWhere('s.exampleField = :val')
-	//            ->setParameter('val', $value)
-	//            ->orderBy('s.id', 'ASC')
-	//            ->setMaxResults(10)
-	//            ->getQuery()
-	//            ->getResult()
-	//        ;
-	//    }
-
-	//    public function findOneBySomeField($value): ?StarshipPart
-	//    {
-	//        return $this->createQueryBuilder('s')
-	//            ->andWhere('s.exampleField = :val')
-	//            ->setParameter('val', $value)
-	//            ->getQuery()
-	//            ->getOneOrNullResult()
-	//        ;
-	//    }
+	/**
+	 * @return StarshipPart[] Returns an array of StarshipPart objects
+	 */
+	public function findAllOrderedByPrice(): array {
+		return $this->createQueryBuilder('sp')
+			->orderBy('sp.price', 'DESC')
+			->getQuery()
+			->getResult();
+	}
 }
