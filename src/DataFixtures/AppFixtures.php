@@ -15,35 +15,13 @@ use Doctrine\Persistence\ObjectManager;
 
 class AppFixtures extends Fixture {
 	public function load(ObjectManager $manager): void {
-		$starship = StarshipFactory::createOne([
+		StarshipFactory::createOne([
 			'name' => 'USS LeafyCruiser (NCC-0001)',
 			'class' => 'Garden',
 			'captain' => 'Jean-Luc Pickles',
 			'status' => StarshipStatusEnum::IN_PROGRESS,
 			'arrivedAt' => new DateTimeImmutable('-1 day'),
-		])->_real();
-
-		$droid1 = new Droid();
-		$droid1->setName('IHOP-123');
-		$droid1->setPrimaryFunction('Pancake chef');
-		$starship->addDroid($droid1);
-		$manager->persist($droid1);
-
-		$droid2 = new Droid();
-		$droid2->setName('D-3P0');
-		$droid2->setPrimaryFunction('C-3PO\'s voice coach');
-		$starship->addDroid($droid2);
-		$manager->persist($droid2);
-
-		$droid3 = new Droid();
-		$droid3->setName('BONK-5000');
-		$droid3->setPrimaryFunction('Comedy sidekick');
-		$starship->addDroid($droid3);
-		$manager->persist($droid3);
-
-		$manager->flush();
-
-		$starship->removeDroid($droid1);
+		]);
 
 		StarshipFactory::createOne([
 			'name' => 'USS Espresso (NCC-1234-C)',
@@ -53,7 +31,7 @@ class AppFixtures extends Fixture {
 			'arrivedAt' => new DateTimeImmutable('-1 week'),
 		]);
 
-		$ship = StarshipFactory::createOne([
+		StarshipFactory::createOne([
 			'name' => 'USS Wanderlust (NCC-2024-W)',
 			'class' => 'Delta Tourist',
 			'captain' => 'Kathryn Journeyway',
@@ -61,8 +39,10 @@ class AppFixtures extends Fixture {
 			'arrivedAt' => new DateTimeImmutable('-1 month'),
 		]);
 
-		StarshipFactory::createMany(20);
-		StarshipPartFactory::createMany(100);
 		DroidFactory::createMany(100);
+		StarshipFactory::createMany(100, [
+			'droids' => DroidFactory::randomRange(1,5)
+		]);
+		StarshipPartFactory::createMany(100);
 	}
 }
