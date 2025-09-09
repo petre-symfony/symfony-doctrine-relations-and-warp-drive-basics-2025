@@ -40,8 +40,10 @@ class AppFixtures extends Fixture {
 		$droid3->setPrimaryFunction('Comedy sidekick');
 		$starship->addDroid($droid3);
 		$manager->persist($droid3);
-		
+
 		$manager->flush();
+
+		$starship->removeDroid($droid1);
 
 		StarshipFactory::createOne([
 			'name' => 'USS Espresso (NCC-1234-C)',
