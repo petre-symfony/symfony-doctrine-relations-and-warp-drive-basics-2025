@@ -50,7 +50,7 @@ class Starship {
 	/**
 	 * @var Collection<int, StarshipDroid>
 	 */
-	#[ORM\OneToMany(targetEntity: StarshipDroid::class, mappedBy: 'starship')]
+	#[ORM\OneToMany(targetEntity: StarshipDroid::class, mappedBy: 'starship', cascade: ['persist'])]
 	private Collection $starshipDroids;
 
 	public function __construct() {
